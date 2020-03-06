@@ -1,33 +1,27 @@
 import React, { useState, useEffect } from 'react';
-
-// const strava = require('strava-v3');
+import axios from 'axios';
 
 const StravaApi = () => {
-  const [accessToken, setAccessToken] = useState(null);
-
-  // useEffect(() => {
-  //   strava.config({
-  //     access_token: 'Your apps access token (Required for Quickstart)',
-  //     client_id: '44378',
-  //     client_secret: '68d0196721ef3be5a5907b8436ed965bd35e2a36',
-  //     redirect_uri: 'localhost'
-  //   });
-  //   strava.athletes.get({ id: 44378 }, (err, payload, limits) => {
-  //     console.log(err, payload, limits);
-  //   });
-  // }, [accessToken]);
+  const [stravaData, setStravaData] = useState('Empty');
+  useEffect(() => {
+    axios
+      .get('https://www.strava.com/api/v3/athletes/663067/activities', {
+        params: {
+          access_token: 'fa33c2994b219dee014e5a01ab7c2efa930e07f9',
+          per_page: '200'
+        }
+      })
+      .then((response) => {
+        const activities = response.data;
+        setStravaData({ activities });
+      });
+  }, []);
 
   return (
     <div>
-      <button
-        type="button"
-        onClick={() => setAccessToken('Success!')}
-      >
-        Get your Strava Account!
-      </button>
       <div>
-        Your access token is
-        {` ${accessToken}`}
+        Your strava data is
+        {` ${stravaData}`}
       </div>
     </div>
   );
