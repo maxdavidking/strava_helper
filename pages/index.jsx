@@ -1,10 +1,11 @@
 import Head from 'next/head';
+import Link from 'next/link';
 import styled from 'styled-components';
 import StravaApi from '../components/StravaApi';
 
 const Home = () => {
   const Header = styled.h1`
-    color: red;
+    color: blue;
   `;
 
   const Grid = styled.div`
@@ -35,6 +36,9 @@ const Home = () => {
         <h3>Strava Explorer</h3>
         <p>Enter an address and find some local runs!</p>
         <StravaApi />
+        <Link href="/about">
+          <a>About Page</a>
+        </Link>
       </Grid>
       <footer />
     </>

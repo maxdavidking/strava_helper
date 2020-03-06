@@ -13,7 +13,7 @@ const About = () => {
   return (
     <>
       <Header>
-        Welcome to Strava Helper
+        About
       </Header>
 
       <Grid>
