@@ -2,26 +2,29 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const StravaApi = () => {
-  const [stravaData, setStravaData] = useState('Empty');
+  const [stravaId, setStravaId] = useState('Empty');
   useEffect(() => {
+    const token = 'fa33c2994b219dee014e5a01ab7c2efa930e07f9';
+    const url = 'https://www.strava.com/api/v3/athlete';
     axios
-      .get('https://www.strava.com/api/v3/athletes/663067/activities', {
-        params: {
-          access_token: 'fa33c2994b219dee014e5a01ab7c2efa930e07f9',
-          per_page: '200'
-        }
+      .get(url, {
+        headers: { Authorization: `Bearer ${token}` }
       })
       .then((response) => {
-        const activities = response.data;
-        setStravaData({ activities });
+        const id = response.data.id;
+        console.log(response);
+        setStravaId(id);
+      })
+      .catch((error) => {
+        console.log(error);
       });
   }, []);
 
   return (
     <div>
       <div>
-        Your strava data is
-        {` ${stravaData}`}
+        Your strava id is
+        {` ${stravaId}`}
       </div>
     </div>
   );
