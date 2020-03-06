@@ -1,28 +1,21 @@
 import React, { useState, useEffect } from 'react';
 
-const StravaApiV3 = require('strava_api_v3');
+// const strava = require('strava-v3');
 
 const StravaApi = () => {
   const [accessToken, setAccessToken] = useState(null);
 
-  useEffect(() => {
-    const defaultClient = StravaApiV3.ApiClient.instance;
-
-    // Configure OAuth2 access token for authorization: strava_oauth
-    const stravaOauth = defaultClient.authentications.strava_oauth;
-    stravaOauth.accessToken = 'fa33c2994b219dee014e5a01ab7c2efa930e07f9';
-
-    const api = new StravaApiV3.AthletesApi();
-
-    const callback = (error, data, response) => {
-      if (error) {
-        console.error(error);
-      } else {
-        console.log(`API Called Successfully. Returned Data: ${data}`);
-      }
-    };
-    api.getLoggedInAthlete(callback);
-  }, [accessToken]);
+  // useEffect(() => {
+  //   strava.config({
+  //     access_token: 'Your apps access token (Required for Quickstart)',
+  //     client_id: '44378',
+  //     client_secret: '68d0196721ef3be5a5907b8436ed965bd35e2a36',
+  //     redirect_uri: 'localhost'
+  //   });
+  //   strava.athletes.get({ id: 44378 }, (err, payload, limits) => {
+  //     console.log(err, payload, limits);
+  //   });
+  // }, [accessToken]);
 
   return (
     <div>
