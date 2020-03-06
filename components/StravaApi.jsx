@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
+const StravaApiV3 = require('strava_api_v3');
+
 const StravaApi = () => {
   const [accessToken, setAccessToken] = useState(null);
 
   useEffect(() => {
-    const StravaApiV3 = require('strava_api_v3');
     const defaultClient = StravaApiV3.ApiClient.instance;
 
     // Configure OAuth2 access token for authorization: strava_oauth
