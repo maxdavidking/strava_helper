@@ -12,5 +12,9 @@
     "react": "16.13.0",
     "react-dom": "16.13.0",
     "styled-components": "^5.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-plugin-react": "^7.18.3"
   }
 }
