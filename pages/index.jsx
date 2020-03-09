@@ -21,7 +21,6 @@ const Home = () => {
       <Header>
         Welcome to Strava Helper
       </Header>
-
       <Grid>
         <h3>Strava to Google Sheets</h3>
         <p>
@@ -31,11 +30,9 @@ const Home = () => {
 
         <h3>Strava Data Viz</h3>
         <p>Visualizes all of your runs onto a map (or something!)</p>
-        <StravaApi />
 
         <h3>Strava Explorer</h3>
         <p>Enter an address and find some local runs!</p>
-        <StravaApi />
         <Link href="/about">
           <a>About Page</a>
         </Link>
