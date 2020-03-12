@@ -11,7 +11,6 @@ const Home = () => {
   const Grid = styled.div`
     display: grid;
   `;
-
   return (
     <>
       <Head>
