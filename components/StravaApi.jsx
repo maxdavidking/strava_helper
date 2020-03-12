@@ -2,21 +2,21 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const StravaApi = () => {
-  // Need to make a request to Strava to check that the access token hasn't
-  // expired. Expires seemingly every 6 hours
   const [stravaId, setStravaId] = useState('');
-  const [accessToken, setAccessToken] = useState('')
-  const [userStats, setUserStats] = useState('None');
-  const [lastActivity, setLastActivity] = useState('None');
+  const [accessToken, setAccessToken] = useState('');
+  const [userRunCount, setUserRunCount] = useState('Loading....');
+  const [lastActivity, setLastActivity] = useState('Loading...');
 
   useEffect(() => {
-    const refreshUrl = 'https://www.strava.com/api/v3/oauth/token'
+    const refreshUrl = 'https://www.strava.com/api/v3/oauth/token';
     const baseUrl = 'https://www.strava.com/api/v3';
     const athleteUrl = '/athlete';
     const athleteStatsUrl = `/athletes/${stravaId}/stats`;
     const lastActivityUrl = `/athletes/${stravaId}/activities`;
-    // the client_id, client_secret and refresh token are unique to each person.
-    // They are all required to update the accessToken, which is required to get any data
+
+    // Need to make a request to Strava to check that the access token hasn't
+    // expired. Expires every 6 hours. Need the client_id, client_secret and
+    // refresh token, which are unique to each person.
     axios
       .post(`${refreshUrl}`, {
         client_id: '44378',
@@ -27,11 +27,10 @@ const StravaApi = () => {
       // Add success handling. Need to update the access token from the response.
       .then((response) => {
         setAccessToken(response.data.access_token);
-        console.log(response);
       })
       // Add error handling. If there is no response this app won't work
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
+        setAccessToken('');
       });
 
     if (accessToken) {
@@ -41,11 +40,10 @@ const StravaApi = () => {
         })
         .then((response) => {
           const { id } = response.data;
-          console.log(response);
           setStravaId(id);
         })
-        .catch((error) => {
-          console.log(error);
+        .catch(() => {
+          setStravaId('');
         });
     }
 
@@ -55,12 +53,11 @@ const StravaApi = () => {
           headers: { Authorization: `Bearer ${accessToken}` }
         })
         .then((response) => {
-          const data = response.data.recent_run_totals.count;
-          console.log(response);
-          setUserStats(data);
+          const { data: { recent_run_totals: count } } = response;
+          setUserRunCount(count);
         })
-        .catch((error) => {
-          console.log(error);
+        .catch(() => {
+          setUserRunCount('Error!');
         });
       // TODO: Need to fix activities search
       axios
@@ -72,8 +69,8 @@ const StravaApi = () => {
           console.log(response);
           setLastActivity(data);
         })
-        .catch((error) => {
-          console.log(error);
+        .catch(() => {
+          setLastActivity('Error!');
         });
     }
   }, [stravaId, accessToken]);
@@ -81,7 +78,11 @@ const StravaApi = () => {
     <div>
       <div>
         Your strava id is:
-
+        {stravaId}
+        Your run count is:
+        {userRunCount}
+        Your last activity is:
+        {lastActivity}
       </div>
     </div>
   );
