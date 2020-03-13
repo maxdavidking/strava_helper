@@ -119,7 +119,7 @@ const StravaApi = () => {
         <h2> Your strava id is:</h2>
         <p>{stravaUserId}</p>
         <h2> Your run count is:</h2>
-        <p>{userRunCount && 'No Data!'}</p>
+        <p>{userRunCount || 'No count'}</p>
         <h2> Your Activities:</h2>
         <div>
           {userActivities
