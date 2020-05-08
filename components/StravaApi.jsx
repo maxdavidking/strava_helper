@@ -13,9 +13,7 @@ const StravaApi = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
 
-  const {
-    query: { code }
-  } = useRouter();
+  const { query: { code } } = useRouter();
 
   const refreshUrl = 'https://www.strava.com/api/v3/oauth/token';
   const baseUrl = 'https://www.strava.com/api/v3';
