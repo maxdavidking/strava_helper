@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
+import styled from 'styled-components';
 
+const DataPoint = styled.div`
+  margin: 0.5em;
+`;
 const StravaApi = () => {
   // TODO redirect to base URL once the code from Strava is captured
   const [stravaUserId, setStravaUserId] = useState('');
@@ -13,7 +17,9 @@ const StravaApi = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
 
-  const { query: { code } } = useRouter();
+  const {
+    query: { code }
+  } = useRouter();
 
   const refreshUrl = 'https://www.strava.com/api/v3/oauth/token';
   const baseUrl = 'https://www.strava.com/api/v3';
@@ -94,6 +100,7 @@ const StravaApi = () => {
         })
         .then((response) => {
           const { data } = response;
+          console.log(data);
           setUserActivities(data);
         })
         .catch(() => {
@@ -101,6 +108,24 @@ const StravaApi = () => {
         });
     }
   }, [accessToken, refreshToken, stravaUserId]);
+
+  const formatMetresToKilometres = (metres) => {
+    const kilometres = metres / 1000;
+    const roundedKilometres = Math.round((kilometres + Number.EPSILON) * 100) / 100;
+    return `${roundedKilometres} km`;
+  };
+
+  const formatSecondsToMinutes = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const secondsMinusMinutes = seconds - minutes * 60;
+    // Add hour marks if over an hour
+    if (minutes >= 60) {
+      const hours = Math.floor(minutes / 60);
+      const minutesMinusHours = minutes - hours * 60;
+      return `${hours}h ${minutesMinusHours}m ${secondsMinusMinutes}s`;
+    }
+    return `${minutes}m ${secondsMinusMinutes}s`;
+  };
 
   // TODO turn these into loading/error components
   if (isLoading) {
@@ -116,16 +141,17 @@ const StravaApi = () => {
       <div>
         <h2> Your strava id is:</h2>
         <p>{stravaUserId}</p>
-        <h2> Your run count is:</h2>
+        <h2> Your run count in the last month is:</h2>
         <p>{userRunCount || 'No count'}</p>
         <h2> Your Activities:</h2>
         <div>
           {userActivities
             ? userActivities.map((activity) => (
               <>
-                <div>{`Name: ${activity.name}`}</div>
-                <div>{`Distance: ${activity.distance}`}</div>
-                <div>{`Time: ${activity.moving_time}`}</div>
+                <DataPoint>{activity.name}</DataPoint>
+                <DataPoint>{activity.start_date}</DataPoint>
+                <DataPoint>{formatMetresToKilometres(activity.distance)}</DataPoint>
+                <DataPoint>{formatSecondsToMinutes(activity.moving_time)}</DataPoint>
               </>
             ))
             : 'No acitivites'}
