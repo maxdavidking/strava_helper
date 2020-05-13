@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import StravaWrapper from '../components/StravaWrapper';
+import StravaContainer from '../components/StravaContainer';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 
@@ -10,7 +10,7 @@ const Home = () => (
       <link rel="icon" href="/favicon.ico" />
     </Head>
     <NavBar />
-    <StravaWrapper />
+    <StravaContainer />
     <Footer />
   </>
 );
