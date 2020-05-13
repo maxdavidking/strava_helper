@@ -12,21 +12,14 @@ const About = () => {
 
   return (
     <>
-      <Header>
-        About
-      </Header>
-
+      <Header>About.jsx</Header>
       <Grid>
         <h3>Strava to Google Sheets</h3>
-        <p>
-          Every time you upload a run to Strava it will also write to a specified Google Sheet
-        </p>
+        <p>Every time you upload a run to Strava it will also write to a specified Google Sheet</p>
         <StravaApi />
-
         <h3>Strava Data Viz</h3>
         <p>Visualizes all of your runs onto a map (or something!)</p>
         <StravaApi />
-
         <h3>Strava Explorer</h3>
         <p>Enter an address and find some local runs!</p>
         <StravaApi />

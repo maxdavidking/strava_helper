@@ -2,11 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import styled from 'styled-components';
+import Link from 'next/link';
+import Loading from './Loading';
+import Error from './Error';
+
+const Grid = styled.div`
+  display: grid;
+`;
 
 const DataPoint = styled.div`
   margin: 0.5em;
 `;
-const StravaApi = () => {
+const StravaWrapper = () => {
   // TODO redirect to base URL once the code from Strava is captured
   const [stravaUserId, setStravaUserId] = useState('');
   const [stravaOauthCode, setStravaOauthCode] = useState('');
@@ -24,10 +31,13 @@ const StravaApi = () => {
   const refreshUrl = 'https://www.strava.com/api/v3/oauth/token';
   const baseUrl = 'https://www.strava.com/api/v3';
   const allActivitiesUrl = '/athlete/activities';
+  // TODO need to hide these values from the front-end
   const clientId = '44378';
   const clientSecret = '68d0196721ef3be5a5907b8436ed965bd35e2a36';
 
+  // This sets up the initial access token information
   useEffect(() => {
+    console.log('getting access token');
     setStravaOauthCode(code);
     axios
       .post('https://www.strava.com/api/v3/oauth/token', {
@@ -54,6 +64,7 @@ const StravaApi = () => {
     // unique to the app and the refresh token, which is unique to each person.
     // TODO check if this actually checks if refreshToken is expired and fix the
     // hack of setting refreshToken default to 1
+    console.log('setting refresh token');
     if (refreshToken <= 0) {
       axios
         .post(`${refreshUrl}`, {
@@ -74,7 +85,9 @@ const StravaApi = () => {
   }, [refreshToken]);
 
   // TODO put into it's own component?
+  // Gets user data
   useEffect(() => {
+    console.log('getting user data');
     if (stravaUserId) {
       const athleteStatsUrl = `/athletes/${stravaUserId}/stats`;
       // get Athlete
@@ -129,39 +142,48 @@ const StravaApi = () => {
 
   // TODO turn these into loading/error components
   if (isLoading) {
-    return <div> Loading.... </div>;
+    return <Loading />;
   }
 
   if (hasError) {
-    return <div> Error! </div>;
+    return <Error />;
   }
 
   return (
-    <div>
+    <Grid>
+      <h3>Strava to Google Sheets</h3>
+      <p>Every time you upload a run to Strava it will also write to a specified Google Sheet</p>
       <div>
-        <h2> Your strava id is:</h2>
-        <p>{stravaUserId}</p>
-        <h2> Your run count in the last month is:</h2>
-        <p>{userRunCount || 'No count'}</p>
-        <h2> Your Activities:</h2>
         <div>
-          {userActivities
-            ? userActivities.map((activity) => (
-              <>
-                <DataPoint>{activity.name}</DataPoint>
-                <DataPoint>{activity.start_date}</DataPoint>
-                <DataPoint>{formatMetresToKilometres(activity.distance)}</DataPoint>
-                <DataPoint>{formatSecondsToMinutes(activity.moving_time)}</DataPoint>
-              </>
-            ))
-            : 'No acitivites'}
+          <h2> Your strava id is:</h2>
+          <p>{stravaUserId}</p>
+          <h2> Your run count in the last month is:</h2>
+          <p>{userRunCount || 'No count'}</p>
+          <h2> Your Activities:</h2>
+          <div>
+            {userActivities
+              ? userActivities.map((activity) => (
+                <>
+                  <DataPoint>{activity.name}</DataPoint>
+                  <DataPoint>{activity.start_date}</DataPoint>
+                  <DataPoint>{formatMetresToKilometres(activity.distance)}</DataPoint>
+                  <DataPoint>{formatSecondsToMinutes(activity.moving_time)}</DataPoint>
+                </>
+              ))
+              : 'No acitivites'}
+          </div>
         </div>
+        <a href="https://www.strava.com/oauth/authorize?client_id=44378&redirect_uri=http://localhost:3003&response_type=code&scope=activity:read_all">
+          Authorize!
+        </a>
       </div>
-      <a href="https://www.strava.com/oauth/authorize?client_id=44378&redirect_uri=http://localhost:3003&response_type=code&scope=activity:read_all">
-        Authorize!
-      </a>
-    </div>
+      <h3>Strava Data Viz</h3>
+      <p>Visualizes all of your runs onto a map (or something!)</p>
+      <h3>Strava Explorer</h3>
+      <p>Enter an address and find some local runs!</p>
+      <Link href="/about">About Page</Link>
+    </Grid>
   );
 };
 
-export default StravaApi;
+export default StravaWrapper;
