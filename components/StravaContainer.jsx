@@ -5,6 +5,9 @@ import styled from 'styled-components';
 import Loading from './Loading';
 import Error from './Error';
 import StravaDataDashboard from './StravaDataDashboard';
+import StravaDataToGoogleSheets from './StravaDataToGoogleSheets';
+import StravaRunExplorer from './StravaRunExplorer';
+import StravaDataViz from './StravaDataViz';
 import AuthorizeStravaPrompt from './AuthorizeStravaPrompt';
 
 const Grid = styled.div`
@@ -135,12 +138,21 @@ const StravaContainer = () => {
 
   return (
     <Grid>
-      <h3>Strava to Google Sheets</h3>
-      <p>Every time you upload a run to Strava it will also write to a specified Google Sheet</p>
-      <h3>Strava Data Viz</h3>
-      <p>Visualizes all of your runs onto a map (or something!)</p>
-      <h3>Strava Explorer</h3>
-      <p>Enter an address and find some local runs!</p>
+      <StravaDataToGoogleSheets
+        stravaUserId={stravaUserId}
+        userRunCount={userRunCount}
+        userActivities={userActivities}
+      />
+      <StravaDataViz
+        stravaUserId={stravaUserId}
+        userRunCount={userRunCount}
+        userActivities={userActivities}
+      />
+      <StravaRunExplorer
+        stravaUserId={stravaUserId}
+        userRunCount={userRunCount}
+        userActivities={userActivities}
+      />
       <StravaDataDashboard
         stravaUserId={stravaUserId}
         userRunCount={userRunCount}
