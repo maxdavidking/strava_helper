@@ -8,6 +8,7 @@ const Home = () => (
     <Head>
       <title>Strava Helper</title>
       <link rel="icon" href="/favicon.ico" />
+      <script src="https://apis.google.com/js/api.js" />
     </Head>
     <NavBar />
     <StravaContainer />
