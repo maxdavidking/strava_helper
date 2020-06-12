@@ -1,10 +1,5 @@
 // TODO is it possible to just append data to wherever the end is?
 
-// Need to somehow init the gapi value below
-const init = () => {
-  console.log('init gapi');
-};
-
 // Example below
 const values = [
   ['Item', 'Cost', 'Stocked', 'Ship Date'],
@@ -25,7 +20,7 @@ const body = {
 // Need to get the spreadsheet ID, the range of cells, the values to send and whether
 // to send raw or formatted
 const sendData = () => {
-  gapi.client.sheets.spreadsheets.values
+  window.gapi.client.sheets.spreadsheets.values
     .update({
       spreadsheetId: '1YngoQHyjw4YyMmwQ9VPXseu01aTBJsyqg_zuc7H2vlk', // The sheet's ID. Not sure how to get this programmatically
       range: 'Sheet1', // The range of cells we're working with. Could be the entire sheet like in the example.
@@ -38,4 +33,4 @@ const sendData = () => {
     });
 };
 
-export default { init, sendData };
+export default sendData;
