@@ -1,45 +1,61 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-// TODO find out which way to actually sendData. Two different methods in two
-// helper functions below
-import load from '../helpers/sheet_get';
 import sendData from '../helpers/sheet_update';
-
-const APIKEY = 'AIzaSyCf1gZibxEzSxslhAGUwWlNFGzJIhZLmfo';
 
 const StravaDataToGoogleSheets = ({ stravaUserId, userRunCount, userActivities }) => {
   const [activityData, setActivityData] = useState({});
   const [hasError, setHasError] = useState({});
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // THIS METHOD REQUIRES THAT THE USER MAKE THE SHEET PUBLIC SEPARATE FROM THIS APP
-  const initClient = () => {
-    // 2. Initialize the JavaScript client library.
-    window.gapi.client
-      .init({
-        apiKey: APIKEY,
-        // Your API key will be automatically added to the Discovery Document URLs.
-        discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4']
-      })
-      .then(() => {
-        // 3. Initialize and make the API request.
-        sendData();
-      });
+  useEffect(() => {
+    const initClient = () => {
+      // 2. Pass in api keys for authentication
+      window.gapi.client
+        .init({
+          apiKey: 'AIzaSyCf1gZibxEzSxslhAGUwWlNFGzJIhZLmfo',
+          // Your API key will be automatically added to the Discovery Document URLs.
+          discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
+          scope: 'https://www.googleapis.com/auth/spreadsheets',
+          clientId: '938680240774-tm633bmv67d8vvqeca2fqecdtamdm8ut.apps.googleusercontent.com'
+        })
+        .then(() => {
+          // Listen for sign-in state changes.
+          window.gapi.auth2.getAuthInstance().isSignedIn.listen();
+        });
+    };
+    // 1. Init the gapi client
+    window.gapi.load('client:auth2', initClient);
+  }, [isLoggedIn]);
+
+  const handleAuthClick = () => {
+    window.gapi.auth2.getAuthInstance().signIn();
+    setIsLoggedIn(true);
   };
 
-  const sendDataToSheets = () => {
-    // Load gapi window object
-    console.log(window.gapi);
-    window.gapi.load('client', initClient);
+  const handleSignoutClick = () => {
+    window.gapi.auth2.getAuthInstance().signOut();
+    setIsLoggedIn(false);
   };
 
   return (
     <>
       <h3>Strava to Google Sheets</h3>
       <p>Every time you upload a run to Strava it will also write to a specified Google Sheet</p>
-      <button type="button" onClick={sendDataToSheets}>
-        Send Data To Google Sheets
-      </button>
+      {isLoggedIn ? (
+        <button type="button" onClick={handleSignoutClick}>
+          Sign Out
+        </button>
+      ) : (
+        <button type="button" onClick={handleAuthClick}>
+          Sign In
+        </button>
+      )}
+      {isLoggedIn && (
+        <button type="button" onClick={sendData}>
+          Send your data biatch
+        </button>
+      )}
     </>
   );
 };

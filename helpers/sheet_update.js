@@ -19,13 +19,14 @@ const body = {
 
 // Need to get the spreadsheet ID, the range of cells, the values to send and whether
 // to send raw or formatted
+// TODO this is throwing an error "request is missing required authentication credential"
 const sendData = () => {
   window.gapi.client.sheets.spreadsheets.values
     .update({
-      spreadsheetId: '1YngoQHyjw4YyMmwQ9VPXseu01aTBJsyqg_zuc7H2vlk', // The sheet's ID. Not sure how to get this programmatically
-      range: 'Sheet1', // The range of cells we're working with. Could be the entire sheet like in the example.
+      spreadsheetId: '1kPRIKVMmYZPp4E6oZgeQnJ3AdE0ECo9DP45-WQqM7DY', // The sheet's ID. Not sure how to get this programmatically
+      range: 'Sheet1!A1', // The range of cells we're working with. Could be the entire sheet like in the example.
       valueInputOption: 'RAW', // one of RAW or USER_ENTERED.
-      resource: body // The values to send.
+      resource: [['123']] // The values to send.
     })
     .then((response) => {
       const { result } = response;
