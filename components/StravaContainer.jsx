@@ -29,13 +29,6 @@ const StravaContainer = () => {
     query: { code }
   } = useRouter();
 
-  const refreshUrl = 'https://www.strava.com/api/v3/oauth/token';
-  const baseUrl = 'https://www.strava.com/api/v3';
-  const allActivitiesUrl = '/athlete/activities';
-  // TODO need to hide these values from the front-end
-  const clientId = '44378';
-  const clientSecret = '68d0196721ef3be5a5907b8436ed965bd35e2a36';
-
   // This sets up the initial access token information
   useEffect(() => {
     console.log('getting access token');
@@ -70,8 +63,6 @@ const StravaContainer = () => {
     if (refreshToken <= 0) {
       axios
         .post(`${refreshUrl}`, {
-          client_id: '44378',
-          client_secret: '68d0196721ef3be5a5907b8436ed965bd35e2a36',
           grant_type: 'refresh_token',
           refresh_token: refreshToken
         })
