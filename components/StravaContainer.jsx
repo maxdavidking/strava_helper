@@ -24,7 +24,6 @@ const StravaContainer = () => {
   const [userActivities, setUserActivities] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
-
   const {
     query: { code }
   } = useRouter();
@@ -40,8 +39,8 @@ const StravaContainer = () => {
     setStravaOauthCode(code);
     axios
       .post('https://www.strava.com/api/v3/oauth/token', {
-        client_id: process.env.CLIENT_ID,
-        client_secret: process.env.CLIENT_SECRET,
+        client_id: process.env.NEXT_PUBLIC_CLIENT_ID,
+        client_secret: process.env.NEXT_PUBLIC_CLIENT_SECRET,
         grant_type: 'authorization_code',
         code: stravaOauthCode
       })
@@ -68,8 +67,8 @@ const StravaContainer = () => {
     if (refreshToken <= 0) {
       axios
         .post(`${refreshUrl}`, {
-          client_id: process.env.CLIENT_ID,
-          client_secret: process.env.CLIENT_SECRET,
+          client_id: process.env.NEXT_PUBLIC_CLIENT_ID,
+          client_secret: process.env.NEXT_PUBLIC_CLIENT_SECRET,
           grant_type: 'refresh_token',
           refresh_token: refreshToken
         })

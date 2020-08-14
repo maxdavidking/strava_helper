@@ -17,7 +17,7 @@ const StravaDataToGoogleSheets = ({ stravaUserId, userRunCount, userActivities }
           // Your API key will be automatically added to the Discovery Document URLs.
           discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
           scope: 'https://www.googleapis.com/auth/spreadsheets',
-          clientId: '938680240774-tm633bmv67d8vvqeca2fqecdtamdm8ut.apps.googleusercontent.com'
+          clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID
         })
         .then(() => {
           // Listen for sign-in state changes.
@@ -28,12 +28,12 @@ const StravaDataToGoogleSheets = ({ stravaUserId, userRunCount, userActivities }
     window.gapi.load('client:auth2', initClient);
   }, [isLoggedIn]);
 
-  const handleAuthClick = () => {
+  const handleSignInClick = () => {
     window.gapi.auth2.getAuthInstance().signIn();
     setIsLoggedIn(true);
   };
 
-  const handleSignoutClick = () => {
+  const handleSignOutClick = () => {
     window.gapi.auth2.getAuthInstance().signOut();
     setIsLoggedIn(false);
   };
@@ -43,11 +43,11 @@ const StravaDataToGoogleSheets = ({ stravaUserId, userRunCount, userActivities }
       <h3>Strava to Google Sheets</h3>
       <p>Every time you upload a run to Strava it will also write to a specified Google Sheet</p>
       {isLoggedIn ? (
-        <button type="button" onClick={handleSignoutClick}>
+        <button type="button" onClick={handleSignOutClick}>
           Sign Out
         </button>
       ) : (
-        <button type="button" onClick={handleAuthClick}>
+        <button type="button" onClick={handleSignInClick}>
           Sign In
         </button>
       )}

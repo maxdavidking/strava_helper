@@ -1,5 +1,5 @@
 // TODO is it possible to just append data to wherever the end is?
-
+// TODO This is where we are at.
 // Example below
 const values = [
   ['Item', 'Cost', 'Stocked', 'Ship Date'],
