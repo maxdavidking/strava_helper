@@ -1,6 +1,4 @@
-// TODO is it possible to just append data to wherever the end is?
-// TODO This is where we are at.
-// Example below
+// Example below of format for send data
 const values = [
   ['Item', 'Cost', 'Stocked', 'Ship Date'],
   ['Wheel', '$20.50', '4', '3/1/2016'],
@@ -10,16 +8,8 @@ const values = [
   // Additional rows ...
 ];
 
-// Example below
-const body = {
-  range: 'Sheet1!A1:D5', // Specify range of where to write
-  majorDimension: 'ROWS', // Specify rows or columns depending on how you want to write
-  values
-};
-
 // Need to get the spreadsheet ID, the range of cells, the values to send and whether
 // to send raw or formatted
-// TODO this is throwing an error "request is missing required authentication credential"
 const sendData = () => {
   window.gapi.client.sheets.spreadsheets.values
     .update({
