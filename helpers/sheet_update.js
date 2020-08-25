@@ -24,9 +24,16 @@ const sendData = () => {
   window.gapi.client.sheets.spreadsheets.values
     .update({
       spreadsheetId: '1kPRIKVMmYZPp4E6oZgeQnJ3AdE0ECo9DP45-WQqM7DY', // The sheet's ID. Not sure how to get this programmatically
-      range: 'Sheet1!A1', // The range of cells we're working with. Could be the entire sheet like in the example.
+      range: 'Sheet1!A1', // The range of cells we're working with. Could be the entire sheet like it is here
       valueInputOption: 'RAW', // one of RAW or USER_ENTERED.
-      resource: [['123']] // The values to send.
+      // The values to send. Needs to be format:
+      // { values: [
+      // [row-1-col-1, row-1-col-2],
+      // [row-2-col-1, row-2-col-2],
+      // [row-3-col-1, row-3-col2],
+      // [etc...]
+      // ] }
+      resource: { values }
     })
     .then((response) => {
       const { result } = response;
