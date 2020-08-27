@@ -52,7 +52,7 @@ const StravaDataToGoogleSheets = ({ stravaUserId, userRunCount, userActivities }
         </button>
       )}
       {isLoggedIn && (
-        <button type="button" onClick={createSheetAndSendData(userActivities)}>
+        <button type="button" onClick={() => createSheetAndSendData(userActivities)}>
           Send your data biatch
         </button>
       )}

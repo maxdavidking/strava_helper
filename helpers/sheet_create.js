@@ -1,26 +1,40 @@
-// Example below of format for send data
-// const values = [
-//   ['Item', 'Cost', 'Stocked', 'Ship Date'],
-//   ['Wheel', '$20.50', '4', '3/1/2016'],
-//   ['Door', '$15', '2', '3/15/2016'],
-//   ['Engine', '$100', '1', '3/20/2016'],
-//   ['Totals', '=SUM(B2:B4)', '=SUM(C2:C4)', '=MAX(D2:D4)']
-//   Additional rows ...
-// ];
+import defaultSheet from './default_sheet';
 
-const formatDataForSheet = (values) => {
-  console.log(values);
-  // do something with values
-  const formattedValues = values.map((value) => {
-    // do something with each value
-    console.log(value);
-    return value;
+const formatDataForSheet = (rawStravaValues) => {
+  const formattedValues = rawStravaValues.map((value) => {
+    const rowObject = {
+      values: [
+        { userEnteredValue: { stringValue: value.name } },
+        {
+          userEnteredValue: { stringValue: value.start_date },
+          userEnteredFormat: {
+            numberFormat: {
+              type: 'DATE',
+              pattern: 'dd/mm/yyyy'
+            }
+          }
+        },
+        { userEnteredValue: { numberValue: value.distance } },
+        { userEnteredValue: { numberValue: value.moving_time } }
+      ]
+    };
+    return rowObject;
   });
   return formattedValues;
 };
-const createSheetAndSendData = (values) => {
-  const spreadsheetBody = formatDataForSheet(values);
 
+const addDataToSpreadsheetBody = (formattedStravaValues) => {
+  console.log(defaultSheet);
+  formattedStravaValues.forEach((arrayOfvalues) => {
+    defaultSheet.sheets[0].data[0].rowData.push(arrayOfvalues);
+  });
+  console.log('data to send:', defaultSheet);
+  return defaultSheet;
+};
+
+const createSheetAndSendData = (rawStravaValues) => {
+  const formattedStravaValues = formatDataForSheet(rawStravaValues);
+  const spreadsheetBody = addDataToSpreadsheetBody(formattedStravaValues);
   const request = window.gapi.client.sheets.spreadsheets.create({}, spreadsheetBody);
   request.then(
     (response) => {

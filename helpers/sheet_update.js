@@ -1,4 +1,4 @@
-// Example below of format for send data
+// Example below of format for send data on spreadsheet update
 // const values = [
 //   ['Item', 'Cost', 'Stocked', 'Ship Date'],
 //   ['Wheel', '$20.50', '4', '3/1/2016'],
