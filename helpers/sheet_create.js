@@ -11,6 +11,11 @@
 const formatDataForSheet = (values) => {
   console.log(values);
   // do something with values
+  const formattedValues = values.map((value) => {
+    // do something with each value
+    console.log(value);
+    return value;
+  });
   return formattedValues;
 };
 const createSheetAndSendData = (values) => {
