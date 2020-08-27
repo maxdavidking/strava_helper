@@ -23,12 +23,11 @@ const formatDataForSheet = (rawStravaValues) => {
   return formattedValues;
 };
 
+// TODO update this function so as to not directly mutate defaultSheet?
 const addDataToSpreadsheetBody = (formattedStravaValues) => {
-  console.log(defaultSheet);
   formattedStravaValues.forEach((arrayOfvalues) => {
     defaultSheet.sheets[0].data[0].rowData.push(arrayOfvalues);
   });
-  console.log('data to send:', defaultSheet);
   return defaultSheet;
 };
 
