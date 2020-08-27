@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import sendData from '../helpers/sheet_update';
-import createSheet from '../helpers/sheet_create';
+import createSheetAndSendData from '../helpers/sheet_create';
 
 const StravaDataToGoogleSheets = ({ stravaUserId, userRunCount, userActivities }) => {
   const [activityData, setActivityData] = useState({});
@@ -53,7 +52,7 @@ const StravaDataToGoogleSheets = ({ stravaUserId, userRunCount, userActivities }
         </button>
       )}
       {isLoggedIn && (
-        <button type="button" onClick={createSheet}>
+        <button type="button" onClick={createSheetAndSendData}>
           Send your data biatch
         </button>
       )}
