@@ -36,6 +36,7 @@ const defaultSheet = {
                 }
               ]
             }
+            // Data from Strava is added here
           ]
         }
       ]

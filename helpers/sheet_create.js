@@ -1,3 +1,4 @@
+import { cloneDeep } from 'lodash';
 import defaultSheet from './default_sheet';
 
 const formatDataForSheet = (rawStravaValues) => {
@@ -23,12 +24,12 @@ const formatDataForSheet = (rawStravaValues) => {
   return formattedValues;
 };
 
-// TODO update this function so as to not directly mutate defaultSheet?
 const addDataToSpreadsheetBody = (formattedStravaValues) => {
+  const deepCopyOfDefaultSheet = cloneDeep(defaultSheet);
   formattedStravaValues.forEach((arrayOfvalues) => {
-    defaultSheet.sheets[0].data[0].rowData.push(arrayOfvalues);
+    deepCopyOfDefaultSheet.sheets[0].data[0].rowData.push(arrayOfvalues);
   });
-  return defaultSheet;
+  return deepCopyOfDefaultSheet;
 };
 
 const createSheetAndSendData = (rawStravaValues) => {
@@ -43,6 +44,7 @@ const createSheetAndSendData = (rawStravaValues) => {
       return response.result;
     },
     (reason) => {
+      // TODO handle errors
       console.error(`error: ${reason.result.error.message}`);
       return reason.result.error.message;
     }
