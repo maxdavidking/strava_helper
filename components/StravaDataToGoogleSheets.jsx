@@ -3,6 +3,19 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import createSheetAndSendData from '../helpers/sheet_create';
 
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem;
+  border: 1px solid #eaeaee;
+`;
+
+const Header = styled.h3``;
+
+const Body = styled.p``;
+
 const StravaDataToGoogleSheets = ({ stravaUserId, userRunCount, userActivities }) => {
   const [activityData, setActivityData] = useState({});
   const [hasError, setHasError] = useState({});
@@ -39,24 +52,26 @@ const StravaDataToGoogleSheets = ({ stravaUserId, userRunCount, userActivities }
   };
 
   return (
-    <>
-      <h3>Strava to Google Sheets</h3>
-      <p>Every time you upload a run to Strava it will also write to a specified Google Sheet</p>
+    <Wrapper>
+      <Header>Strava to Google Sheets</Header>
+      <Body>
+        Every time you upload a run to Strava it will also write to a specified Google Sheet
+      </Body>
       {isLoggedIn ? (
         <button type="button" onClick={handleSignOutClick}>
-          Sign Out
+          Sign Out Of Google Sheets
         </button>
       ) : (
         <button type="button" onClick={handleSignInClick}>
-          Sign In
+          Sign In To Google Sheets
         </button>
       )}
       {isLoggedIn && (
         <button type="button" onClick={() => createSheetAndSendData(userActivities)}>
-          Send your data biatch
+          Send Your Data To Google Sheets
         </button>
       )}
-    </>
+    </Wrapper>
   );
 };
 

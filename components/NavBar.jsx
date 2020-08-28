@@ -7,6 +7,7 @@ const Wrapper = styled.nav`
   align-items: center;
   border-bottom: 1px solid #eaeaee;
   padding: 0 4rem;
+  height: 10vh;
 `;
 
 const NavBar = () => (

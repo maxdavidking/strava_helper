@@ -11,15 +11,15 @@ import StravaDataViz from './StravaDataViz';
 import AuthorizeStravaPrompt from './AuthorizeStravaPrompt';
 
 const Wrapper = styled.div`
-  height: 80vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   background-image: ;
 `;
 
-const Grid = styled.div`
-  display: grid;
+const Actions = styled.div`
+  display: flex;
 `;
 
 const Container = () => {
@@ -147,34 +147,39 @@ const Container = () => {
     );
   }
 
+  // TODO add error handling and CSS
+  if (!stravaUserId) {
+    return (
+      <Wrapper>
+        <AuthorizeStravaPrompt setIsLoading={setIsLoading} setHasError={setHasError} />
+      </Wrapper>
+    );
+  }
+
   return (
     <Wrapper>
-      {!stravaUserId ? (
-        <AuthorizeStravaPrompt setIsLoading={setIsLoading} setHasError={setHasError} />
-      ) : (
-        <Grid>
-          <StravaDataToGoogleSheets
-            stravaUserId={stravaUserId}
-            userRunCount={userRunCount}
-            userActivities={userActivities}
-          />
-          <StravaDataViz
-            stravaUserId={stravaUserId}
-            userRunCount={userRunCount}
-            userActivities={userActivities}
-          />
-          <StravaRunExplorer
-            stravaUserId={stravaUserId}
-            userRunCount={userRunCount}
-            userActivities={userActivities}
-          />
-          <StravaDataDashboard
-            stravaUserId={stravaUserId}
-            userRunCount={userRunCount}
-            userActivities={userActivities}
-          />
-        </Grid>
-      )}
+      <Actions>
+        <StravaDataToGoogleSheets
+          stravaUserId={stravaUserId}
+          userRunCount={userRunCount}
+          userActivities={userActivities}
+        />
+        <StravaDataViz
+          stravaUserId={stravaUserId}
+          userRunCount={userRunCount}
+          userActivities={userActivities}
+        />
+        <StravaRunExplorer
+          stravaUserId={stravaUserId}
+          userRunCount={userRunCount}
+          userActivities={userActivities}
+        />
+      </Actions>
+      <StravaDataDashboard
+        stravaUserId={stravaUserId}
+        userRunCount={userRunCount}
+        userActivities={userActivities}
+      />
     </Wrapper>
   );
 };
