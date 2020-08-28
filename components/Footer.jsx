@@ -1,10 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Wrapper = styled.div`
+const FooterWrapper = styled.footer`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   display: flex;
+  height: 4rem;
 `;
 // TODO: Flesh this out with styles, etc..
-const Footer = () => <h1>Footer!</h1>;
+const Footer = () => <FooterWrapper>Disclaimer Stuff</FooterWrapper>;
 
 export default Footer;

@@ -2,13 +2,28 @@ import Head from 'next/head';
 import { createGlobalStyle } from 'styled-components';
 import { lighten, darken } from 'polished';
 import { Normalize } from 'styled-normalize';
-import StravaContainer from '../components/StravaContainer';
+import Container from '../components/Container';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 
 const GlobalStyle = createGlobalStyle`
   * {
     font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+  }
+
+  html {
+    height: 100%;
+  }
+
+  body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  footer {
+    flex-shrink: 0;
   }
 
   h1 {
@@ -31,6 +46,19 @@ const GlobalStyle = createGlobalStyle`
       background-color: ${lighten(0.1, '#3dd16b')}
     }
   }
+
+  a {
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 18px;
+    transition: all 0.1s ease;
+    color: #3dd16b;
+
+    &:hover {
+      color: ${lighten(0.1, '#3dd16b')}
+    }
+  }
 `;
 const Home = () => (
   <>
@@ -46,7 +74,7 @@ const Home = () => (
     <Normalize />
     <GlobalStyle />
     <NavBar />
-    <StravaContainer />
+    <Container />
     <Footer />
   </>
 );

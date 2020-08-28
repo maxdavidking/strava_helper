@@ -1,13 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Wrapper = styled.div`
+const Wrapper = styled.nav`
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eaeaee;
+  padding: 0 4rem;
 `;
 
 const NavBar = () => (
   <Wrapper>
-    <button type="button">This is the Navbar!</button>
+    <h4>Strava Helper</h4>
+    <a href="mailto:maxdavidking@gmail.com">Contact</a>
   </Wrapper>
 );
 
