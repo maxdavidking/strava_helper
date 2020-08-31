@@ -43,8 +43,9 @@ const Data = styled.div`
 const DataWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  border: 1px solid #eaeaee;
-  margin: 1rem;
+  margin: 1.5rem;
+  border-radius: 6px;
+  box-shadow: 0 20px 25px 0 rgba(0, 0, 0, 0.1);
 `;
 
 const DataPoint = styled.div`
