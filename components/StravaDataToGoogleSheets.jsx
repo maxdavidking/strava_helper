@@ -16,6 +16,10 @@ const Header = styled.h3``;
 
 const Body = styled.p``;
 
+const GoogleSheetsButton = styled.button`
+  margin: 1rem;
+`;
+
 const StravaDataToGoogleSheets = ({ stravaUserId, userRunCount, userActivities }) => {
   const [activityData, setActivityData] = useState({});
   const [hasError, setHasError] = useState({});
@@ -58,15 +62,16 @@ const StravaDataToGoogleSheets = ({ stravaUserId, userRunCount, userActivities }
         Every time you upload a run to Strava it will also write to a specified Google Sheet
       </Body>
       {isLoggedIn ? (
-        <button type="button" onClick={handleSignOutClick}>
+        <GoogleSheetsButton type="button" onClick={handleSignOutClick}>
           Sign Out Of Google Sheets
-        </button>
+        </GoogleSheetsButton>
       ) : (
-        <button type="button" onClick={handleSignInClick}>
+        <GoogleSheetsButton type="button" onClick={handleSignInClick}>
           Sign In To Google Sheets
-        </button>
+        </GoogleSheetsButton>
       )}
       {isLoggedIn && (
+        // TODO this should only render AFTER google Oauth completes
         <button type="button" onClick={() => createSheetAndSendData(userActivities)}>
           Send Your Data To Google Sheets
         </button>

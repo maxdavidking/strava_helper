@@ -19,6 +19,8 @@ const UserInfo = styled.div`
 const StravaId = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
+  min-width: 25vw;
   padding: 2rem;
   border: 1px solid #eaeaee;
 `;
@@ -26,6 +28,8 @@ const StravaId = styled.div`
 const RunCount = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
+  min-width: 25vw;
   padding: 2rem;
   border: 1px solid #eaeaee;
 `;
@@ -70,11 +74,11 @@ const StravaDataDashboard = ({ userRunCount, userActivities, stravaUserId }) => 
     <Wrapper>
       <UserInfo>
         <StravaId>
-          <h2> Your strava id is:</h2>
+          <h2>Strava ID</h2>
           <p>{stravaUserId}</p>
         </StravaId>
         <RunCount>
-          <h2> Your run count in the last month is:</h2>
+          <h2>Activities in the past 30 days</h2>
           <p>{userRunCount || 'No count'}</p>
         </RunCount>
       </UserInfo>
