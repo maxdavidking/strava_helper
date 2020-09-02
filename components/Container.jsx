@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import styled from 'styled-components';
-import Loading from './Loading';
 import Error from './Error';
 import StravaDataDashboard from './StravaDataDashboard';
 import StravaDataToGoogleSheets from './StravaDataToGoogleSheets';
@@ -42,7 +41,6 @@ const Container = () => {
 
   // This sets up the initial access token information
   useEffect(() => {
-    console.log('getting access token');
     setStravaOauthCode(code);
     axios
       .post('https://www.strava.com/api/v3/oauth/token', {
@@ -124,16 +122,7 @@ const Container = () => {
     }
   }, [accessToken, refreshToken, stravaUserId]);
 
-  // TODO add loading handling and CSS
-  if (isLoading) {
-    return (
-      <Wrapper>
-        <Loading />
-      </Wrapper>
-    );
-  }
-
-  // TODO add error handling and CSS
+  // TODO add error handling and CSS if AuthorizeStravaPrompt fails
   if (hasError) {
     return (
       <Wrapper>

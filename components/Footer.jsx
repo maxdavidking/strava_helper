@@ -2,13 +2,26 @@ import React from 'react';
 import styled from 'styled-components';
 
 const FooterWrapper = styled.footer`
-  width: 100%;
   display: flex;
-  height: 10vh;
   color: white;
   background-color: gray;
+  padding: 1rem;
+  justify-content: center;
+  align-items: center;
 `;
-// TODO: Flesh this out with styles, etc..
-const Footer = () => <FooterWrapper>Disclaimer Stuff</FooterWrapper>;
+
+const Disclaimer = styled.p`
+  a {
+    color: white;
+  }
+`;
+
+const Footer = () => (
+  <FooterWrapper>
+    <Disclaimer>
+      <a href="https://github.com/maxdavidking/strava_helper">GitHub Repo</a>
+    </Disclaimer>
+  </FooterWrapper>
+);
 
 export default Footer;

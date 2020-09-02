@@ -10,9 +10,17 @@ const Wrapper = styled.nav`
   height: 10vh;
 `;
 
+const Header = styled.h3`
+  a {
+    color: black;
+  }
+`;
+
 const NavBar = () => (
   <Wrapper>
-    <h3>Strava Helper</h3>
+    <Header>
+      <a href="/">Strava Helper</a>
+    </Header>
     <a href="mailto:maxdavidking@gmail.com">Contact</a>
   </Wrapper>
 );
