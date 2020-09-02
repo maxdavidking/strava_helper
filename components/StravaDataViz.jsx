@@ -7,15 +7,74 @@ const Wrapper = styled.div`
   align-items: center;
   margin: 2rem;
   cursor: not-allowed;
-  background: linear-gradient(to right, rgba(255, 255, 255, 0), #fff);
 `;
 
 const Body = styled.p`
   text-align: center;
 `;
 
+const Ribbon = styled.div`
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  position: absolute;
+  left: inherit;
+  opacity: 0.3;
+
+  @media (max-width: 750px) {
+    left: 10%;
+  }
+
+  @media (max-width: 450px) {
+    left: 0;
+  }
+
+  &:before {
+    position: absolute;
+    z-index: -1;
+    content: '';
+    display: block;
+    border: 5px solid #2980b9;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    top: 0;
+    right: 0;
+  }
+
+  &:after {
+    position: absolute;
+    z-index: -1;
+    content: '';
+    display: block;
+    border: 5px solid #2980b9;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    bottom: 0;
+    left: 0;
+  }
+
+  span {
+    position: absolute;
+    display: block;
+    width: 225px;
+    padding: 15px 0;
+    background-color: #3498db;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    font: 700 18px/1 'Lato', sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+    right: -25px;
+    top: 30px;
+    transform: rotate(-45deg);
+  }
+`;
+
 const StravaDataViz = () => (
   <Wrapper>
+    <Ribbon>
+      <span>Coming Soon</span>
+    </Ribbon>
     <h2>Strava Data Viz</h2>
     <Body>See your routes mapped out</Body>
   </Wrapper>
