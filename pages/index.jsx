@@ -84,6 +84,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   p {
+    font-size: 1.5rem;
     color: rgba(0,0,0,.7);
   }
 `;

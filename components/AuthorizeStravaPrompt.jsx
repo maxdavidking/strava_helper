@@ -9,7 +9,7 @@ const Wrapper = styled.div`
 `;
 
 const Header = styled.h1`
-  margin: 2rem;
+  margin: 5rem 2rem;
 `;
 
 const AuthorizeStravaPrompt = () => (

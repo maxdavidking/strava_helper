@@ -18,6 +18,10 @@ const Wrapper = styled.div`
 
 const Actions = styled.div`
   display: flex;
+
+  @media (max-width: 750px) {
+    flex-direction: column;
+  }
 `;
 
 const Container = () => {

@@ -16,6 +16,10 @@ const UserInfo = styled.div`
   display: flex;
   justify-content: space-around;
   width: 80%;
+
+  @media (max-width: 650px) {
+    flex-direction: column;
+  }
 `;
 
 const StravaId = styled.div`
@@ -52,7 +56,8 @@ const DataWrapper = styled.div`
 `;
 
 const DataPoint = styled.div`
-  margin: 0.5em;
+  font-size: 1.5rem;
+  margin: 0.5rem;
 `;
 
 const StravaDataDashboard = ({ userRunCount, userActivities, stravaUserId }) => {
