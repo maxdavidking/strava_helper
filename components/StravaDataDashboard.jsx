@@ -55,8 +55,7 @@ const DataWrapper = styled.div`
   box-shadow: 0 20px 25px 0 rgba(0, 0, 0, 0.1);
 `;
 
-const DataPoint = styled.div`
-  font-size: 1.5rem;
+const DataPoint = styled.p`
   margin: 0.5rem;
 `;
 
