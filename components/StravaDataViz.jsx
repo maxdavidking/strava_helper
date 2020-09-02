@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -7,24 +6,19 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   margin: 2rem;
-  border: 1px solid #eaeaee;
+  cursor: not-allowed;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), #fff);
 `;
 
-const Header = styled.h3``;
+const Body = styled.p`
+  text-align: center;
+`;
 
-const Body = styled.p``;
-
-const StravaDataViz = ({}) => (
+const StravaDataViz = () => (
   <Wrapper>
-    <Header>Strava Data Viz</Header>
-    <Body>Visualizes all of your runs onto a map (or something!)</Body>
+    <h2>Strava Data Viz</h2>
+    <Body>See your routes mapped out</Body>
   </Wrapper>
 );
 
 export default StravaDataViz;
-
-StravaDataViz.propTypes = {
-  userActivities: PropTypes.array.isRequired,
-  userRunCount: PropTypes.number.isRequired,
-  stravaUserId: PropTypes.number.isRequired
-};

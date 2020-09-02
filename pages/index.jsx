@@ -10,6 +10,14 @@ const GlobalStyle = createGlobalStyle`
   * {
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
+
+    @media (max-width: 960px) {
+      font-size: 14px;
+    }
+
+    @media (max-width: 420px) {
+      font-size: 12px;
+    }
   }
 
   html {
@@ -28,6 +36,21 @@ const GlobalStyle = createGlobalStyle`
 
   h1 {
     font-size: 4rem;
+    font-weight: 100;
+    rgba(0,0,0,.7);
+    letter-spacing: -1.1px;
+  }
+
+  h2 {
+    font-size: 2rem;
+    font-weight: 100;
+    rgba(0,0,0,.7);
+    letter-spacing: -1.1px;
+    text-align: center;
+  }
+
+  h3 {
+    font-size: 1.25rem;
   }
 
   button {
@@ -36,11 +59,11 @@ const GlobalStyle = createGlobalStyle`
     border-radius: 25px;
     background-color: #3dd16b;
     font-weight: 700;
-    font-size: 18px;
     transition: all 0.1s ease;
     color: white;
     padding: 16px 29px;
     border: none;
+    font-size: 1rem;
 
     &:hover {
       background-color: ${lighten(0.1, '#3dd16b')}
@@ -58,6 +81,10 @@ const GlobalStyle = createGlobalStyle`
     &:hover {
       color: ${lighten(0.1, '#3dd16b')}
     }
+  }
+
+  p {
+    color: rgba(0,0,0,.7);
   }
 `;
 const Home = () => (

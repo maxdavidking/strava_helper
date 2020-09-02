@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -7,24 +6,19 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   margin: 2rem;
-  border: 1px solid #eaeaee;
+  cursor: not-allowed;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), #fff);
 `;
 
-const Header = styled.h3``;
-
-const Body = styled.p``;
+const Body = styled.p`
+  text-align: center;
+`;
 
 const StravaRunExplorer = () => (
   <Wrapper>
-    <Header>Strava Explorer</Header>
-    <Body>Enter an address and find some local runs!</Body>
+    <h2>Strava Explorer</h2>
+    <Body>Find routes around your location</Body>
   </Wrapper>
 );
 
 export default StravaRunExplorer;
-
-StravaRunExplorer.propTypes = {
-  userActivities: PropTypes.array.isRequired,
-  userRunCount: PropTypes.number.isRequired,
-  stravaUserId: PropTypes.number.isRequired
-};

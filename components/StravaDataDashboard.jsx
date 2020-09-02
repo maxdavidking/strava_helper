@@ -22,7 +22,6 @@ const StravaId = styled.div`
   align-items: center;
   min-width: 25vw;
   padding: 2rem;
-  border: 1px solid #eaeaee;
 `;
 
 const RunCount = styled.div`
@@ -31,13 +30,13 @@ const RunCount = styled.div`
   align-items: center;
   min-width: 25vw;
   padding: 2rem;
-  border: 1px solid #eaeaee;
 `;
 
 const Data = styled.div`
   display: flex;
   padding: 2rem;
   flex-wrap: wrap;
+  justify-content: center;
 `;
 
 const DataWrapper = styled.div`

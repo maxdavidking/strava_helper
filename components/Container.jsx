@@ -35,10 +35,10 @@ const Container = () => {
     query: { code }
   } = useRouter();
 
+  // TODO need to hide these values from the front-end??
   const refreshUrl = 'https://www.strava.com/api/v3/oauth/token';
   const baseUrl = 'https://www.strava.com/api/v3';
   const allActivitiesUrl = '/athlete/activities';
-  // TODO need to hide these values from the front-end
 
   // This sets up the initial access token information
   useEffect(() => {
@@ -63,14 +63,12 @@ const Container = () => {
   }, [code, stravaOauthCode]);
 
   // TODO put into it's own component?
-  // TODO not sure this is working correctly
   useEffect(() => {
     // Need to make a request to Strava to check that the access token hasn't
     // expired. Expires every 6 hours. Need the client_id, client_secret, which is
     // unique to the app and the refresh token, which is unique to each person.
     // TODO check if this actually checks if refreshToken is expired and fix the
     // hack of setting refreshToken default to 1
-    console.log('setting refresh token');
     if (refreshToken <= 0) {
       axios
         .post(`${refreshUrl}`, {
@@ -90,10 +88,8 @@ const Container = () => {
     }
   }, [refreshToken]);
 
-  // TODO put into it's own component?
   // Gets user data
   useEffect(() => {
-    console.log('getting user data');
     if (stravaUserId) {
       const athleteStatsUrl = `/athletes/${stravaUserId}/stats`;
       // get Athlete
@@ -146,7 +142,6 @@ const Container = () => {
     );
   }
 
-  // TODO add error handling and CSS
   if (!stravaUserId) {
     return (
       <Wrapper>
@@ -163,16 +158,8 @@ const Container = () => {
           userRunCount={userRunCount}
           userActivities={userActivities}
         />
-        <StravaDataViz
-          stravaUserId={stravaUserId}
-          userRunCount={userRunCount}
-          userActivities={userActivities}
-        />
-        <StravaRunExplorer
-          stravaUserId={stravaUserId}
-          userRunCount={userRunCount}
-          userActivities={userActivities}
-        />
+        <StravaDataViz />
+        <StravaRunExplorer />
       </Actions>
       <StravaDataDashboard
         stravaUserId={stravaUserId}

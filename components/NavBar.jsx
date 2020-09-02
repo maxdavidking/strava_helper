@@ -12,7 +12,7 @@ const Wrapper = styled.nav`
 
 const NavBar = () => (
   <Wrapper>
-    <h4>Strava Helper</h4>
+    <h3>Strava Helper</h3>
     <a href="mailto:maxdavidking@gmail.com">Contact</a>
   </Wrapper>
 );

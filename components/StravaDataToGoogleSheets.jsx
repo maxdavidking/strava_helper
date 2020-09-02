@@ -9,12 +9,11 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   margin: 2rem;
-  border: 1px solid #eaeaee;
 `;
 
-const Header = styled.h3``;
-
-const Body = styled.p``;
+const Body = styled.p`
+  text-align: center;
+`;
 
 const GoogleSheetsButton = styled.button`
   margin: 1rem;
@@ -57,10 +56,8 @@ const StravaDataToGoogleSheets = ({ stravaUserId, userRunCount, userActivities }
 
   return (
     <Wrapper>
-      <Header>Strava to Google Sheets</Header>
-      <Body>
-        Every time you upload a run to Strava it will also write to a specified Google Sheet
-      </Body>
+      <h2>Strava to Google Sheets</h2>
+      <Body>Dump your Strava activities into a new spreadsheet</Body>
       {isLoggedIn ? (
         <GoogleSheetsButton type="button" onClick={handleSignOutClick}>
           Sign Out Of Google Sheets
