@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev -p 3003",
     "build": "next build",
-    "start": "next start -p 3004"
+    "start": "next start -p 3004",
+    "postbuild": "next-on-netlify"
   },
   "dependencies": {
     "axios": "^0.19.2",
@@ -15,6 +16,7 @@
     "lodash": "^4.17.20",
     "moment": "^2.27.0",
     "next": "^9.4.1",
+    "next-on-netlify": "^2.4.0",
     "polished": "^3.6.5",
     "prop-types": "^15.7.2",
     "react": "16.13.0",
