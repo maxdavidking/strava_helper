@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import styled from 'styled-components';
-import Loading from './Loading';
 import Error from './Error';
 import StravaDataDashboard from './StravaDataDashboard';
 import StravaDataToGoogleSheets from './StravaDataToGoogleSheets';
@@ -10,11 +9,22 @@ import StravaRunExplorer from './StravaRunExplorer';
 import StravaDataViz from './StravaDataViz';
 import AuthorizeStravaPrompt from './AuthorizeStravaPrompt';
 
-const Grid = styled.div`
-  display: grid;
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
-const StravaContainer = () => {
+const Actions = styled.div`
+  display: flex;
+
+  @media (max-width: 750px) {
+    flex-direction: column;
+  }
+`;
+
+const Container = () => {
   // TODO redirect to base URL once the code from Strava is captured
   const [stravaUserId, setStravaUserId] = useState('');
   const [stravaOauthCode, setStravaOauthCode] = useState('');
@@ -24,24 +34,22 @@ const StravaContainer = () => {
   const [userActivities, setUserActivities] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
-
   const {
     query: { code }
   } = useRouter();
 
+  // TODO need to hide these values from the front-end??
   const refreshUrl = 'https://www.strava.com/api/v3/oauth/token';
   const baseUrl = 'https://www.strava.com/api/v3';
   const allActivitiesUrl = '/athlete/activities';
-  // TODO need to hide these values from the front-end
 
   // This sets up the initial access token information
   useEffect(() => {
-    console.log('getting access token');
     setStravaOauthCode(code);
     axios
       .post('https://www.strava.com/api/v3/oauth/token', {
-        client_id: process.env.CLIENT_ID,
-        client_secret: process.env.CLIENT_SECRET,
+        client_id: process.env.NEXT_PUBLIC_CLIENT_ID,
+        client_secret: process.env.NEXT_PUBLIC_CLIENT_SECRET,
         grant_type: 'authorization_code',
         code: stravaOauthCode
       })
@@ -57,19 +65,17 @@ const StravaContainer = () => {
   }, [code, stravaOauthCode]);
 
   // TODO put into it's own component?
-  // TODO not sure this is working correctly
   useEffect(() => {
     // Need to make a request to Strava to check that the access token hasn't
     // expired. Expires every 6 hours. Need the client_id, client_secret, which is
     // unique to the app and the refresh token, which is unique to each person.
     // TODO check if this actually checks if refreshToken is expired and fix the
     // hack of setting refreshToken default to 1
-    console.log('setting refresh token');
     if (refreshToken <= 0) {
       axios
         .post(`${refreshUrl}`, {
-          client_id: process.env.CLIENT_ID,
-          client_secret: process.env.CLIENT_SECRET,
+          client_id: process.env.NEXT_PUBLIC_CLIENT_ID,
+          client_secret: process.env.NEXT_PUBLIC_CLIENT_SECRET,
           grant_type: 'refresh_token',
           refresh_token: refreshToken
         })
@@ -84,10 +90,8 @@ const StravaContainer = () => {
     }
   }, [refreshToken]);
 
-  // TODO put into it's own component?
   // Gets user data
   useEffect(() => {
-    console.log('getting user data');
     if (stravaUserId) {
       const athleteStatsUrl = `/athletes/${stravaUserId}/stats`;
       // get Athlete
@@ -122,42 +126,42 @@ const StravaContainer = () => {
     }
   }, [accessToken, refreshToken, stravaUserId]);
 
-  if (isLoading) {
-    return <Loading />;
-  }
-
+  // TODO add error handling and CSS if AuthorizeStravaPrompt fails
   if (hasError) {
-    return <Error />;
+    return (
+      <Wrapper>
+        <Error />
+      </Wrapper>
+    );
   }
 
   if (!stravaUserId) {
-    return <AuthorizeStravaPrompt setIsLoading={setIsLoading} setHasError={setHasError} />;
+    return (
+      <Wrapper>
+        <AuthorizeStravaPrompt setIsLoading={setIsLoading} setHasError={setHasError} />
+      </Wrapper>
+    );
   }
 
   return (
-    <Grid>
-      <StravaDataToGoogleSheets
-        stravaUserId={stravaUserId}
-        userRunCount={userRunCount}
-        userActivities={userActivities}
-      />
-      <StravaDataViz
-        stravaUserId={stravaUserId}
-        userRunCount={userRunCount}
-        userActivities={userActivities}
-      />
-      <StravaRunExplorer
-        stravaUserId={stravaUserId}
-        userRunCount={userRunCount}
-        userActivities={userActivities}
-      />
+    <Wrapper>
+      <Actions>
+        <StravaDataToGoogleSheets
+          stravaUserId={stravaUserId}
+          userRunCount={userRunCount}
+          userActivities={userActivities}
+        />
+        {/* TODO Add these in when built
+        <StravaDataViz />
+        <StravaRunExplorer /> */}
+      </Actions>
       <StravaDataDashboard
         stravaUserId={stravaUserId}
         userRunCount={userRunCount}
         userActivities={userActivities}
       />
-    </Grid>
+    </Wrapper>
   );
 };
 
-export default StravaContainer;
+export default Container;
