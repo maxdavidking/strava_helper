@@ -151,8 +151,9 @@ const Container = () => {
           userRunCount={userRunCount}
           userActivities={userActivities}
         />
+        {/* TODO Add these in when built
         <StravaDataViz />
-        <StravaRunExplorer />
+        <StravaRunExplorer /> */}
       </Actions>
       <StravaDataDashboard
         stravaUserId={stravaUserId}
