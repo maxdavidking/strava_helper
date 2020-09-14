@@ -17,7 +17,7 @@ const AuthorizeStravaPrompt = () => (
   // Add redirect URL as env var
   <Wrapper>
     <Header>Strava Helper</Header>
-    <a href="https://www.strava.com/oauth/authorize?client_id=44378&redirect_uri=http://localhost:3003&response_type=code&scope=activity:read_all">
+    <a href="https://www.strava.com/oauth/authorize?client_id=44378&redirect_uri=https://stravahelper.com&response_type=code&scope=activity:read_all">
       <button type="button">Fetch Your Workouts</button>
     </a>
   </Wrapper>
