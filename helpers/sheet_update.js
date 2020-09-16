@@ -27,8 +27,7 @@ const sendData = (values) => {
     })
     .then((response) => {
       const { result } = response;
-      console.log('result is:', result);
-      console.log(`${result.updatedCells} cells updated.`);
+      return result;
     });
 };
 

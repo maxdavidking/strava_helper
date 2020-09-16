@@ -117,7 +117,6 @@ const Container = () => {
         })
         .then((response) => {
           const { data } = response;
-          console.log(data);
           setUserActivities(data);
         })
         .catch(() => {
