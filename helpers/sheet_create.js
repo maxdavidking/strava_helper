@@ -37,17 +37,13 @@ const createSheetAndSendData = (rawStravaValues) => {
   const spreadsheetBody = addDataToSpreadsheetBody(formattedStravaValues);
   const request = window.gapi.client.sheets.spreadsheets.create({}, spreadsheetBody);
   request.then(
-    (response) => {
+    (response) =>
       // TODO: Change code below to process the `response` object:
-      console.log('response is:', response);
-      console.log('result is:', response.result);
-      return response.result;
-    },
-    (reason) => {
+      response.result,
+    (reason) =>
       // TODO handle errors
-      console.error(`error: ${reason.result.error.message}`);
-      return reason.result.error.message;
-    }
+      reason.result.error.message
+
   );
 };
 

@@ -16,15 +16,11 @@ const getSpreadsheet = () => {
         range: 'Sheet1!A1:D4'
       })
       .then(
-        (response) => {
-          console.log(response);
-          return response.result.values;
-        },
-        (response) => {
+        (response) => response.result.values,
+        (response) =>
           // Fix to use state instead of callback
-          console.log(response.result.error);
-          return response;
-        }
+          response
+
       );
   });
 };
