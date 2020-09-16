@@ -1,9 +1,11 @@
 // Example below of format for send data on spreadsheet create
+const date = new Date();
+const dateToday = date.toDateString();
+
 const defaultSheet = {
   properties: {
     // Title of spreadsheet
-    // TODO add date here
-    title: 'Data From Strava Interpolate Date Here'
+    title: `Data From Strava ${dateToday}`
   },
   sheets: [
     {
