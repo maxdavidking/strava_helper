@@ -13,8 +13,7 @@ const Header = styled.h1`
 `;
 
 const AuthorizeStravaPrompt = () => (
-  // TODO figure out how to handle the flow of this redirect uri
-  // Add redirect URL as env var
+  // TODO figure out how to remove the params from redirect URI once successful
   <Wrapper>
     <Header>Strava Helper</Header>
     <a

@@ -20,7 +20,6 @@ const getSpreadsheet = () => {
         (response) =>
           // Fix to use state instead of callback
           response
-
       );
   });
 };

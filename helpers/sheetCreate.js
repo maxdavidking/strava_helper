@@ -1,5 +1,5 @@
 import { cloneDeep } from 'lodash';
-import defaultSheet from './default_sheet';
+import defaultSheet from './defaultSheet';
 
 const formatDataForSheet = (rawStravaValues) => {
   const formattedValues = rawStravaValues.map((value) => {
@@ -32,19 +32,16 @@ const addDataToSpreadsheetBody = (formattedStravaValues) => {
   return deepCopyOfDefaultSheet;
 };
 
-const createSheetAndSendData = (rawStravaValues) => {
+const createSheetAndSendData = async (rawStravaValues) => {
   const formattedStravaValues = formatDataForSheet(rawStravaValues);
   const spreadsheetBody = addDataToSpreadsheetBody(formattedStravaValues);
   const request = window.gapi.client.sheets.spreadsheets.create({}, spreadsheetBody);
-  request.then(
-    (response) =>
-      // TODO: Change code below to process the `response` object:
-      response.result,
-    (reason) =>
-      // TODO handle errors
-      reason.result.error.message
-
-  );
+  await request
+    .then((response) => response.result.properties.title)
+    .catch((reason) => {
+      const error = reason.result.error.message;
+      return error;
+    });
 };
 
 export default createSheetAndSendData;
