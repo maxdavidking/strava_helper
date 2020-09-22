@@ -113,7 +113,7 @@ const StravaDataDashboard = ({ userRunCount, userActivities, stravaUserId }) => 
       <Data>
         {userActivities
           ? userActivities.map((activity) => (
-            <DataWrapper>
+            <DataWrapper key={activity.upload_id}>
               <DataPoint>{activity.name}</DataPoint>
               <DataPoint>{formatTimeStampToDate(activity.start_date)}</DataPoint>
               <DataPoint>{formatMetresToKilometres(activity.distance)}</DataPoint>
