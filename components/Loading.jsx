@@ -1,14 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-// TODO update font and global fonts
 const Spinner = styled.div`
-  height: 25vh;
+  height: 85vh;
   position: relative;
   transition: opacity linear 0.1s;
   text-align: center;
   margin: 2em;
-  font-size: 4vw;
+  font-size: 3rem;
 
   &::before {
     animation: 2s linear infinite spinner;
