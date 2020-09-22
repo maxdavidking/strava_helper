@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import axios from 'axios';
 import styled from 'styled-components';
 import Error from './Error';
+import Loading from './Loading';
 import StravaDataDashboard from './StravaDataDashboard';
 import StravaDataToGoogleSheets from './StravaDataToGoogleSheets';
 import AuthorizeStravaPrompt from './AuthorizeStravaPrompt';
@@ -38,10 +39,17 @@ const Container = () => {
   const baseUrl = 'https://www.strava.com/api/v3';
   const allActivitiesUrl = '/athlete/activities';
 
-  // This gets the basic strava data for the user
+  // This sets strava code to fetch data
   useEffect(() => {
     if (code) {
       setStravaOauthCode(code);
+    }
+  }, [code]);
+
+  // This gets the basic strava data for the user
+  useEffect(() => {
+    if (stravaOauthCode) {
+      setStatus('loading');
       axios
         .post('https://www.strava.com/api/v3/oauth/token', {
           client_id: process.env.NEXT_PUBLIC_CLIENT_ID,
@@ -53,12 +61,14 @@ const Container = () => {
           setRefreshToken(response.data.refresh_token);
           setAccessToken(response.data.access_token);
           setStravaUserId(response.data.athlete.id);
+          setStatus('');
         })
         .catch(() => {
-          setStravaUserId(false);
+          setStravaUserId('');
+          setStatus('');
         });
     }
-  }, [code, stravaOauthCode]);
+  }, [stravaOauthCode]);
 
   // Need to make a request to Strava to check that the access token hasn't
   // expired. Expires every 6 hours. Need the client_id, client_secret, which is
@@ -116,6 +126,10 @@ const Container = () => {
         });
     }
   }, [accessToken, refreshToken, stravaUserId]);
+
+  if (status === 'loading') {
+    return <Loading />;
+  }
 
   if (status === 'error') {
     return <Error />;
