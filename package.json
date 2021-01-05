@@ -9,7 +9,7 @@
     "postbuild": "next-on-netlify"
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "elliptic": "^6.5.3",
     "googleapis": "39",
     "isomorphic-unfetch": "^3.0.0",
