@@ -14,7 +14,7 @@
     "googleapis": "39",
     "isomorphic-unfetch": "^3.0.0",
     "lodash": "^4.17.20",
-    "moment": "^2.27.0",
+    "moment": "^2.29.2",
     "next": "^9.4.1",
     "next-on-netlify": "^2.4.0",
     "polished": "^3.6.5",
